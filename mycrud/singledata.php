@@ -1,0 +1,17 @@
+[
+	{
+	"name":"mycrud",
+	"email":"mycrud@gmail.com",
+	"mobile":"mycrud12345"
+	},
+	{
+	"name":"mycrud2",
+	"email":"mycrud2@gmail.com",
+	"mobile":"mycrud212345"
+	},
+	{
+	"name":"mycrud3",
+	"email":"mycrud3@gmail.com",
+	"mobile":"mycrud312345"
+	}
+]
