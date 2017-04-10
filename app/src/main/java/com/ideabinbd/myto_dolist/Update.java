@@ -1,5 +1,6 @@
 package com.ideabinbd.myto_dolist;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,7 +11,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class Update extends AppCompatActivity {
-
+    private ProgressDialog pd;
     EditText edtUpdateTitle,edtUpdateDesc;
     Button btnUpdate;
     String id,title,description;
@@ -26,6 +27,10 @@ public class Update extends AppCompatActivity {
         id=getIntent().getExtras().getString("id");
         title=getIntent().getExtras().getString("title");
         description=getIntent().getExtras().getString("desc");
+
+        pd=new ProgressDialog(this);
+        pd.setTitle("loading...");
+        pd.setMessage("Please Wait");
 
         updateReq= Volley.newRequestQueue(this);
 

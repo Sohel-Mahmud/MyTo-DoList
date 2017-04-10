@@ -1,5 +1,6 @@
 package com.ideabinbd.myto_dolist;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +18,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
-
+    private ProgressDialog pd;
     private EditText edtEmail,edtPassword;
     private Button btnLogin,btnRegister;
     private RequestQueue registrationNetworkQueue;
@@ -34,6 +38,9 @@ public class Login extends AppCompatActivity {
 
         edtEmail=(EditText) findViewById(R.id.edt_login_email);
         edtPassword=(EditText) findViewById(R.id.edt_login_password);
+        pd=new ProgressDialog(this);
+        pd.setTitle("loading...");
+        pd.setMessage("Please Wait");
 
         btnLogin=(Button) findViewById(R.id.btn_login_login);
         btnRegister=(Button) findViewById(R.id.btn_login_register);
@@ -42,6 +49,7 @@ public class Login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pd.show();
                 String strEmail,strPassword;
                 strEmail=edtEmail.getText().toString();
                 strPassword=edtPassword.getText().toString();
@@ -62,29 +70,22 @@ public class Login extends AppCompatActivity {
         StringRequest saveDataRequest= new StringRequest(Request.Method.POST, onlineURL , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                String[] userData=new String[4];
                 Log.d("serverResponse",response);
-                Toast.makeText(Login.this,response , Toast.LENGTH_SHORT).show();
-
-                /*
+               // Toast.makeText(Login.this,response , Toast.LENGTH_SHORT).show();
                 try {
-                    JSONArray fullData= new JSONArray(response);
-                    names=new String[fullData.length()];
-                    listArray=new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,names);
-                    dataList.setAdapter(listArray);
-                    for (int i=0;i<fullData.length();i++){
-                        JSONObject singleData= fullData.getJSONObject(i);
-                        names[i]=singleData.getString("name");
-                      Log.d("serverResponse",names[i]);
-                    }
+                    JSONObject fullData= new JSONObject(response);
+                    userData[0]=fullData.getString("email");
+                    userData[1]=fullData.getString("name");
+                    userData[2]=fullData.getString("password");
+                    startActivity(new Intent(Login.this,Home.class));
+                    pd.dismiss();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(MainActivity.this, "Data is not JSON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Data is not JSON", Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
                 }
 
-                listArray.notifyDataSetChanged();
-
-                */
             }
         }, new Response.ErrorListener() {
             @Override

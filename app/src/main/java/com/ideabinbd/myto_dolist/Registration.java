@@ -1,5 +1,7 @@
 package com.ideabinbd.myto_dolist;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Registration extends AppCompatActivity {
-
+    private ProgressDialog pd;
     private EditText edtName,edtEmail,edtPassword;
     private Button btnReg;
     private RequestQueue registrationNetworkQueue;
@@ -29,6 +31,10 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        pd=new ProgressDialog(this);
+        pd.setTitle("loading...");
+        pd.setMessage("Please Wait");
 
         edtEmail=(EditText) findViewById(R.id.edt_reg_email);
         edtName=(EditText) findViewById(R.id.edt_reg_name);
@@ -39,6 +45,7 @@ public class Registration extends AppCompatActivity {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pd.show();
                 String strEmail,strName,strPassword;
                 strEmail=edtEmail.getText().toString();
                 strName=edtName.getText().toString();
@@ -57,7 +64,10 @@ public class Registration extends AppCompatActivity {
 
                 Log.d("serverResponse",response);
                 Toast.makeText(Registration.this,response , Toast.LENGTH_SHORT).show();
-
+                if (response.equals("data Entered")){
+                    finish();
+                    startActivity(new Intent(Registration.this,Login.class));
+                }
                 /*
                 try {
                     JSONArray fullData= new JSONArray(response);

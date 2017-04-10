@@ -1,5 +1,6 @@
 package com.ideabinbd.myto_dolist;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class UploadTask extends AppCompatActivity {
+    private ProgressDialog pd;
     private EditText edtTitle,edtDesc;
     private Button btnUpload;
     private RequestQueue rq;
@@ -21,6 +23,9 @@ public class UploadTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_task);
 
+        pd=new ProgressDialog(this);
+        pd.setTitle("loading...");
+        pd.setMessage("Please Wait");
 
         edtTitle=(EditText) findViewById(R.id.edt_task_title);
         edtDesc=(EditText) findViewById(R.id.edt_task_desc);
