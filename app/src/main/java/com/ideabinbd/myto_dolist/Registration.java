@@ -66,7 +66,7 @@ public class Registration extends AppCompatActivity {
                 Toast.makeText(Registration.this,response , Toast.LENGTH_SHORT).show();
                 if (response.equals("data Entered")){
                     finish();
-                    startActivity(new Intent(Registration.this,Login.class));
+                    startActivity(new Intent(Registration.this,Home.class));
                 }
                 /*
                 try {
